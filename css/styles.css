@@ -2,6 +2,35 @@
     background-color: #cccccc;
 }
 
+.menu-dropdown {
+    display: inline-block;
+}
+
+.menu-dropdown-content{
+    display: none;
+}
+
+.menu-dropdown-content a {
+    display: block;
+}
+
+.menu-dropdown-content a:hover{
+    background-color: red;
+}
+
+.menu-dropdown:hover .menu-dropdown-content{
+    display: contents;
+}
+
+.menu-dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.fa-bars {
+    text-decoration: none;
+    color: black;
+}
+
 .footer-bar {
     background-color: #cccccc;
 }
