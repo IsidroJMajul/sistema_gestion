@@ -23,7 +23,7 @@
         </div>
         <!--Logo y nombre de la empresa  -->
         <div class="logo_company">
-            <img src="../Sistema_gestion/imgs/logo_default.png" alt="logo" class="logo"></i>
+            <img src="/imgs/logo_default.png" alt="logo" class="logo"></i>
             <p class="company_name">Su empresa S.A.</p>
         </div>
         <!-- Avatar -->
@@ -38,25 +38,27 @@
          </div>
      </div>
     <!-- Login -->
+    <div id="login" class="login">
      <h1>Inicio de sesión</h1><br>
-     <form action="">
-        <label for="dni">DNI</label><br>
-        <input type="number"><br>
-        <label for="password">Contraseña</label><br>
+     <form action=""> <!-- atributo "action" agregar archivo que ejecutará el form (https://www.w3schools.com/html/html_forms_attributes.asp) -->
+        <label for="dni" class="dni_label">DNI</label><br>
+        <input type="number" inputmode="numeric"><br>
+        <label for="password" class="password_label">Contraseña</label><br>
         <input type="text"><br>
         <a href="">Recuperar contraseña</a><br><br>
         <input type="submit">
      </form>
-     <p>En caso de no tener cuenta activa, <br>
+     <p class="no_active_account">En caso de no tener cuenta activa, <br>
         <a href="">solicitar cuenta al administrador</a>
      </p>
+    </div>
     <!-- Footer -->
      <div id="footer-bar" class="footer-bar">
-        <div>
+        <div class="version">
             <p>Versión ...</p>
             <p>Desarrollado por ...</p>
         </div>
-        <span>
+        <span class="help">
             <a href="">Ayuda</a>
         </span>
         <div class="social-media">

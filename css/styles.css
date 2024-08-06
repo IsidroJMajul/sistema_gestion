@@ -4,7 +4,12 @@
     top: 0;
     display: flex;
     align-items: center;
+    
+}
 
+.fa-bars {
+    text-decoration: none;
+    color: none;
 }
 
 .menu-dropdown {
@@ -45,13 +50,35 @@
     text-align: right;
 } */
 
-.fa-bars {
-    text-decoration: none;
-    color: black;
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.login {
+    position: relative;
+    text-align: center;
+    width: 100%;
 }
 
 .footer-bar {
+    position: relative;
+    display: flex;
+    bottom: 0;
+    margin-top: auto;
     background-color: #cccccc;
+    align-items: center;
+}
+
+/* .version {
+    width: 100%;
+    left: auto;
+} */
+
+.help {
+    width: 100%;
+    text-align: center;
 }
 
 .fa {
@@ -62,6 +89,11 @@
     text-decoration: none;
     margin: 5px 2px;
   }
+
+/* .social-media {
+    flex-direction: row;
+    text-align: center;
+} */
 
 .social-media p {
     margin-bottom: 3px;
