@@ -6,6 +6,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="./css/styles.css">
     <script src="https://kit.fontawesome.com/e674cca334.js" crossorigin="anonymous"></script>
+    <script src="./js/scripts.js"></script>
 </head>
 <body>
     <!-- Barra de navegación -->
@@ -42,11 +43,11 @@
      <h1>Inicio de sesión</h1><br>
      <form action=""> <!-- atributo "action" agregar archivo que ejecutará el form (https://www.w3schools.com/html/html_forms_attributes.asp) -->
         <label for="dni" class="dni_label">DNI</label><br>
-        <input type="number" inputmode="numeric"><br>
+        <input type="number" inputmode="numeric" id="dni_input"><br>
         <label for="password" class="password_label">Contraseña</label><br>
-        <input type="text"><br>
+        <input type="password" id="pass_input"><br>
         <a href="">Recuperar contraseña</a><br><br>
-        <input type="submit">
+        <button onclick="valorDniPass()">Ingresar</button>
      </form>
      <p class="no_active_account">En caso de no tener cuenta activa, <br>
         <a href="">solicitar cuenta al administrador</a>
