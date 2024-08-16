@@ -6,7 +6,6 @@
     <title>Login</title>
     <link rel="stylesheet" href="./css/styles.css">
     <script src="https://kit.fontawesome.com/e674cca334.js" crossorigin="anonymous"></script>
-    <script src="./js/scripts_test.js"></script>
 </head>
 <body>
     <!-- Barra de navegación -->
@@ -41,13 +40,13 @@
     <!-- Login -->
     <div id="login" class="login">
      <h1>Inicio de sesión</h1><br>
-     <form action=""> <!-- atributo "action" agregar archivo que ejecutará el form (https://www.w3schools.com/html/html_forms_attributes.asp) -->
+     <form id="loginForm"> <!-- atributo "action" agregar archivo que ejecutará el form (https://www.w3schools.com/html/html_forms_attributes.asp) -->
         <label for="dni" class="dni_label">DNI</label><br>
         <input type="number" inputmode="numeric" id="dni_input"><br>
         <label for="password" class="password_label">Contraseña</label><br>
         <input type="password" id="pass_input"><br>
         <a href="">Recuperar contraseña</a><br><br>
-        <button id="ingresar_btn">Ingresar</button>
+        <button type="submit" id="ingresar_btn">Ingresar</button>
      </form>
      <p class="no_active_account">En caso de no tener cuenta activa, <br>
         <a href="">solicitar cuenta al administrador</a>
@@ -69,5 +68,7 @@
             <a href="#" class="fa-brands fa-x-twitter fa-2x"></a>
         </div>
      </div>
+     
+     <script src="./js/scripts_test.js"></script>
 </body>
 </html>

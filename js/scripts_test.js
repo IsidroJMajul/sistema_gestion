@@ -1,63 +1,37 @@
-// Ejemplo de API en Node.js
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevenir el envío del formulario
 
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
+  // Capturar los valores de los campos
+  const dni = document.getElementById('dni_input').value;
+  const password = document.getElementById('pass_input').value;
 
-// Conexión a la base de datos
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "users_gestion"
-});
+  console.log('DNI:', dni);
+  console.log('Password:', password);
 
-app.use(bodyParser.json());
+  // Crear un objeto con los datos
+  const data = { dni: dni, password: password };
 
-app.post('/api/login', (req, res) => {
-  const { dni, password } = req.body;
-
-  const query = 'SELECT * FROM users WHERE dni = ? AND password = ?';
-  db.query(query, [dni, password], (error, results) => {
-    if (error) throw error;
-    if (results.length > 0) {
-      res.status(200).json({ success: true });
+  // Enviar los datos a la API usando fetch
+  fetch('http://localhost:5000/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('Response data:', data);
+      alert('Login exitoso');
+      // Aquí podrías redirigir al usuario a otra página, por ejemplo:
+      // window.location.href = '/dashboard.html';
     } else {
-      res.status(401).json({ success: false });
+      alert('Credenciales incorrectas');
     }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    alert('Hubo un problema con el login');
   });
 });
-
-app.listen(3000, () => {
-  console.log('API funcionando en http://localhost:3000');
-});
-
-function valorDniPass() {
-    let dni = document.getElementById('dni_input').value;
-    let pass = document.getElementById('pass_input').value;
-  
-    // Hacer una solicitud POST a la API para verificar los datos
-    fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ dni: dni, password: pass }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert("Vamos!");
-      } else {
-        alert("DNI o contraseña incorrectos.");
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      alert("Hubo un problema con la verificación.");
-    });
-  }
-  
-  // Agregar el event listener al botón de ingresar
-  document.getElementById('ingresar_btn').addEventListener('click', valorDniPass);
