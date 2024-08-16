@@ -1,4 +1,4 @@
-// API Node.js (librerias "express" y "body-parser")
+// API Node.js (librerias "express", "body-parser" y "CORS")
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -38,7 +38,12 @@ app.post('/login', (req, res) => {
       return;
     }
     if (results.length > 0) {
-      res.json({ success: true, message: 'Login exitoso' });
+        const user = results[0];
+        const mail = results[0];
+    res.json({ success: true,
+         username: user.username,
+         mail: mail.mail,
+         message: `Login exitoso` });
     } else {
       res.status(401).json({ success: false, message: 'Credenciales incorrectas' });
     }

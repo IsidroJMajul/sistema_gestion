@@ -19,11 +19,13 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     },
     body: JSON.stringify(data)
   })
+  //A partir de este punto, se maneja la respuesta del servidor "data"
   .then(response => response.json())
   .then(data => {
     if (data.success) {
+      //entonces, lo que se devuelve como respuesta, queda guardado en el parámetro "data" 
       console.log('Response data:', data);
-      alert('Login exitoso');
+      alert(`Login exitoso. Bienvenido, ${data.username}`);
       // Aquí podrías redirigir al usuario a otra página, por ejemplo:
       // window.location.href = '/dashboard.html';
     } else {
