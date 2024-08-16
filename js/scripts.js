@@ -37,5 +37,10 @@ function valorDniPass() {
   let dniValue = dni.value;
   let pass = document.getElementById('pass_input');
   let passValue = pass.value;
-  alert("DNI: " + dniValue + " " + "Password: " + passValue)
+  let dniValueDB = con.query(`SELECT * FROM users where dni = ${dniValue}`); 
+  if (dniValue == dniValueDB) {
+    alert("Vamos!")
 }
+  // alert("DNI: " + dniValue + " " + "Password: " + passValue)
+}
+// Comparar valores de los inputs = valores en base de datos
