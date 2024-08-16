@@ -1,46 +1,37 @@
-// Conexión a base de datos MySQL
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevenir el envío del formulario
 
-let mysql = require('mysql');
+  // Capturar los valores de los campos
+  const dni = document.getElementById('dni_input').value;
+  const password = document.getElementById('pass_input').value;
 
-let con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "users_gestion"
-});
+  console.log('DNI:', dni);
+  console.log('Password:', password);
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  con.end()
-});
+  // Crear un objeto con los datos
+  const data = { dni: dni, password: password };
 
-con.connect(function(err) {
-    // if (err) throw err;
-    con.query("SELECT * FROM users", function (err, result, fields) {
-    //   if (err) throw err;
-      console.log(result);
-    });
+  // Enviar los datos a la API usando fetch
+  fetch('http://localhost:5000/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('Response data:', data);
+      alert('Login exitoso');
+      // Aquí podrías redirigir al usuario a otra página, por ejemplo:
+      // window.location.href = '/dashboard.html';
+    } else {
+      alert('Credenciales incorrectas');
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    alert('Hubo un problema con el login');
   });
-  
-/* PROXIMO PASO:
-El usuario inserte los datos en los campos inputs y aprete el botón de INGRESAR
-Al presionar el botón INGRESAR, el script deberá:
-. conectarse a la base de datos
-. buscar la información colocada en los inputs (dni y password) OK
-. en caso de NO encontrar la información, aparecerá un alerta de ERROR y cerrará la conexión.
-. en caso de SÍ encontrar la información, se dará ingreso a la plataforma y se cargará la siguiente página (por el momento, sólo marcará un alerta de ingreso correcto y cerrará la conexión)
-*/
-
-function valorDniPass() {
-  let dni = document.getElementById('dni_input');
-  let dniValue = dni.value;
-  let pass = document.getElementById('pass_input');
-  let passValue = pass.value;
-  let dniValueDB = con.query(`SELECT * FROM users where dni = ${dniValue}`); 
-  if (dniValue == dniValueDB) {
-    alert("Vamos!")
-}
-  // alert("DNI: " + dniValue + " " + "Password: " + passValue)
-}
-// Comparar valores de los inputs = valores en base de datos
+});
