@@ -4,7 +4,10 @@
     width: 100%;
     top: 0;
     display: flex;
-    align-items: center
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    align-items: center;
+    z-index: 2;
     
 }
 
@@ -78,6 +81,7 @@ body {
     inset: 0; /* forma abreviada de usar: top: 0, left: 0, right: 0, bottom: 0 */
     margin: auto; /* junto con "inset", automáticamente determina los márgenes para acomodar el elemento */
     font-size: x-large;
+    z-index: 1;
 }
 
 form input {
@@ -96,6 +100,7 @@ form button {
     margin-top: auto;
     background-color: #cccccc;
     align-items: center;
+    z-index: 2;
 }
 
 .version {
