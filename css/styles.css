@@ -1,6 +1,7 @@
 #top-nav-bar {
     background-color: #cccccc;
-    position: sticky;
+    position: fixed;
+    width: 100%;
     top: 0;
     display: flex;
     align-items: center
@@ -14,10 +15,13 @@
 
 .menu-dropdown {
     display: inline-block;
+    position: relative;
+    left: 50px;
 }
 
 .menu-dropdown-content{
     display: none;
+    margin: inherit;
 }
 
 .menu-dropdown-content a {
@@ -40,19 +44,25 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center;
     text-align: center;
-    width: 100%;
+    width: 100%; */
+    inset: 0;
+    margin: auto;
+}
+
+.company_name {
+    font-size: xx-large;
 }
 
 .user-menu a:hover {
     outline: red solid 1px;
 }
 
-/* .avatar_user {
-    width: 100%;
-    text-align: right;
-} */
+.avatar_user {
+    position: relative;
+    right: 50px;
+}
 
 body {
     min-height: 100vh;
@@ -63,8 +73,20 @@ body {
 
 .login {
     position: relative;
-    text-align: center;
-    width: 100%;
+    /* text-align: center; */
+    /* width: 100%; */
+    inset: 0; /* forma abreviada de usar: top: 0, left: 0, right: 0, bottom: 0 */
+    margin: auto; /* junto con "inset", automáticamente determina los márgenes para acomodar el elemento */
+    font-size: x-large;
+}
+
+form input {
+    width: auto;
+    height: 25px;
+}
+
+form button {
+    font-size: 25px;
 }
 
 .footer-bar {
@@ -76,14 +98,14 @@ body {
     align-items: center;
 }
 
-/* .version {
-    width: 100%;
-    left: auto;
-} */
+.version {
+    position: relative;
+    left: 50px;
+}
 
 .help {
-    width: 100%;
-    text-align: center;
+    inset: 0;
+    margin: auto;
 }
 
 .fa {
@@ -95,10 +117,10 @@ body {
     margin: 5px 2px;
   }
 
-/* .social-media {
-    flex-direction: row;
-    text-align: center;
-} */
+.social-media {
+    position: relative;
+    right: 50px;
+}
 
 .social-media p {
     margin-bottom: 3px;
