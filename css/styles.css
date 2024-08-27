@@ -8,6 +8,8 @@
     flex: 1;
     justify-content: space-around;
     align-items: center;
+    /* para el espacio entre los bloques */
+    gap: 25px;
     z-index: 2;    
 }
 
