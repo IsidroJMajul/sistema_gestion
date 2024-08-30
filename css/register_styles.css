@@ -8,7 +8,6 @@
     flex: 1;
     justify-content: space-around;
     align-items: center;
-    /* para el espacio entre los bloques */
     gap: 25px;
     z-index: 2;    
 }
@@ -22,8 +21,6 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    /* left: 50px;
-    flex: 1; */
 }
 
 .menu-dropdown-content{
@@ -59,12 +56,6 @@
     position: relative;
     display: flex;
     align-items: center;
-    /* justify-content: center;
-    text-align: center;
-    width: 100%; */
-    /* inset: 0;
-    margin: auto;
-    flex: 1; */
 }
 
 .company_name {
@@ -120,19 +111,16 @@
 }
 
 body {
-    /* "min-height" para que el contenido ocupe toda la vista de la pantalla */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 0%;
 }
 
-.login {
+.register {
     position: relative;
-    /* text-align: center; */
-    /* width: 100%; */
-    inset: 0; /* forma abreviada de usar: top: 0, left: 0, right: 0, bottom: 0 */
-    margin: auto; /* junto con "inset", automáticamente determina los márgenes para acomodar el elemento */
+    inset: 0;
+    margin: auto;
     font-size: x-large;
     z-index: 1;
     top: 50px;

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="../css/register_styles.css">
     <script src="https://kit.fontawesome.com/e674cca334.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -38,20 +38,23 @@
             </div>
         </div>
     </div>
-    <!-- Login -->
-    <div id="login" class="login">
-     <h1>Inicio de sesión</h1><br>
-     <form id="loginForm"> <!-- atributo "action" agregar archivo que ejecutará el form (https://www.w3schools.com/html/html_forms_attributes.asp) -->
-        <label for="dni" class="dni_label">DNI</label><br>
-        <input type="number" inputmode="numeric" id="dni_input"><br>
-        <label for="password" class="password_label">Contraseña</label><br>
-        <input type="password" id="pass_input"><br>
-        <a href="">Recuperar contraseña</a><br><br>
-        <button type="submit" id="ingresar_btn">Ingresar</button>
-     </form>
-     <p class="no_active_account">En caso de no tener cuenta activa, <br>
-        <a href="./pages/register.html">solicitar cuenta al administrador</a>
-     </p>
+    <!-- New user -->
+    <div id="register" class="register">
+        <h1>Crear cuenta</h1><br>
+        <form id="registerForm">
+            <label for="username" class="username_label">Nombre de usuario</label><br>
+            <input type="text" id="username"><br>
+            <label for="dni" class="dni_label">DNI</label><br>
+            <input type="number" inputmode="numeric" id="registerDni"><br>
+            <label for="email" class="email_label">Mail</label><br>
+            <input type="email" id="email"><br>
+            <label for="password" class="password_label">Contraseña</label><br>
+            <input type="password" id="registerPassword"><br> <br>
+            <button type="submit" id="ingresar_btn">Registrar</button>
+        </form> <br> <br>
+        <p>
+            <a href="../index.html">Volver al inicio</a>
+        </p>
     </div>
     <!-- Footer -->
      <div id="footer-bar" class="footer-bar">
@@ -70,6 +73,6 @@
         </div>
      </div>
      
-     <script src="./js/scripts.js"></script>
+     <script src="../js/register_scripts.js"></script>
 </body>
 </html>

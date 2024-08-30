@@ -1,15 +1,16 @@
+// Manejo formulario de login
 document.getElementById('loginForm').addEventListener('submit', function(event) {
   event.preventDefault(); // Prevenir el envío del formulario
 
   // Capturar los valores de los campos
-  const dni = document.getElementById('dni_input').value;
-  const password = document.getElementById('pass_input').value;
+  const dniSubmit = document.getElementById('dni_input').value;
+  const passwordSubmit = document.getElementById('pass_input').value;
 
-  console.log('DNI:', dni);
-  console.log('Password:', password);
+  console.log('DNI:', dniSubmit);
+  console.log('Password:', passwordSubmit);
 
   // Crear un objeto con los datos
-  const data = { dni: dni, password: password };
+  const dataSubmit = { dni: dniSubmit, password: passwordSubmit };
 
   // Enviar los datos a la API usando fetch
   fetch('http://localhost:5000/login', {
@@ -17,7 +18,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(dataSubmit)
   })
   //A partir de este punto, se maneja la respuesta del servidor "data"
   .then(response => response.json())
@@ -37,3 +38,4 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     alert('Hubo un problema con el login');
   });
 });
+

@@ -1,3 +1,5 @@
+// No hay que agregarlo al archivo HTML para que se ejecute, ya que se ejecuta desde la parte backend
+
 // API Node.js (librerias "express", "body-parser" y "CORS")
 const express = require('express');
 const app = express();
@@ -47,6 +49,28 @@ app.post('/login', (req, res) => {
     } else {
       res.status(401).json({ success: false, message: 'Credenciales incorrectas' });
     }
+  });
+});
+
+// Ruta para registrar un nuevo usuario
+app.post('/register', (req, res) => {
+  const { username, dni, email, password } = req.body;
+  // console.log("Correo recibido:", email); // Verifica que el mail se reciba correctamente
+
+  // Primero verifica si el usuario ya existe
+  const checkUserSql = 'SELECT * FROM users WHERE dni = ?';
+  db.query(checkUserSql, [dni], (err, result) => {
+    if (err) return res.status(500).send('Error en la base de datos');
+    if (result.length > 0) {
+      return res.status(400).send('El usuario ya existe');
+    }
+
+    // Si el usuario no existe, inserta el nuevo usuario
+    const insertSql = 'INSERT INTO users (username, dni, mail, password) VALUES (?, ?, ?, ?)';
+    db.query(insertSql, [username, dni, email, password], (err, result) => {
+      if (err) return res.status(500).json({ success: false, message: 'Error al registrar el usuario' });
+      res.json({ success: true, message: 'Usuario registrado con éxito', username, dni, email });
+    });
   });
 });
 
