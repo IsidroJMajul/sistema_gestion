@@ -32,6 +32,8 @@
 }
 
 .menu-dropdown-content a {
+    display: block;
+    padding: 20px;
     border: 1px solid black;
     border-radius: 5px;
     color: white;
@@ -69,17 +71,56 @@
     font-size: xx-large;
 }
 
-.user-menu a:hover {
-    outline: red solid 1px;
+.menu-container {
+    position: absolute;
+    display: none;
+
+}
+
+.menu-container a {
+    display: block;
+    padding: 20px;
+    float: right;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    background-color: grey;
+    font-size: x-large;
+}
+
+.avatar_user:hover .menu-container{
+    display: block;
+    position: absolute;
+    top: 30px;
+}
+
+.user_icon:hover {
+    background-color: grey
+}
+
+.menu-container a:hover {
+    background: red;
 }
 
 .avatar_user {
+    display: flex;
     position: relative;
-    /* right: 50px; */
-    /* flex: 1; */
+    flex-direction: column;
+}
+
+.avatar_user:hover .userbtn {
+    background-color: grey;
+}
+
+.userbtn {
+    border: 3px solid black;
+    border-radius: 100px;
+    padding: 10px;
+    align-content: center;
 }
 
 body {
+    /* "min-height" para que el contenido ocupe toda la vista de la pantalla */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
