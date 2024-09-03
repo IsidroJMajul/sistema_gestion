@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/actions_styles.css">
+    <script src="https://kit.fontawesome.com/e674cca334.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <div id="top-nav-bar" class="top-nav-bar">
+        <!-- Menú "hamburguesa" -->
+        <div class="menu-dropdown">
+            <button class="dropbtn">
+                <i class="fa-solid fa-bars fa-2x"></i>
+            </button>
+            <div class="menu-dropdown-content">
+                <!-- Modificar por tag <nav> -->
+                <a href="#">Stock</a>
+                <a href="#">Ventas</a>
+                <a href="#">Compras</a>
+            </div>
+        </div>
+        <!--Logo y nombre de la empresa  -->
+        <div class="logo_company">
+            <img src="/imgs/logo_default.png" alt="logo" class="logo"></i>
+            <p class="company_name">Su empresa S.A.</p>
+        </div>
+        <!-- Avatar -->
+        <div class="avatar_user">
+            <button class="userbtn">
+                <i id="user_icon" class="fa-solid fa-user"></i>
+            </button>
+            <div class="menu-container">
+                <a href="">Datos personales</a>
+                <a href="">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
+    <!-- Texto bienvenida -->
+    <h1>¡Bienvenido, {username}!</h1>
+    <p class="what_to_do">Selecciona qué hacer: </p>
+    <!-- Botones para seleccionar -->
+    <div class="actions_btn">
+        <button class="stock_btn" onclick="agregarScript">STOCK</button>
+        <button class="compras_btn">COMPRAS</button>
+        <button class="ventas_btn">VENTAS</button>
+    </div>
+    <!-- Footer -->
+     <div id="footer-bar" class="footer-bar">
+        <div class="version">
+            <p>Versión ...</p>
+            <p>Desarrollado por ...</p>
+        </div>
+        <span class="help">
+            <a href="">Ayuda</a>
+        </span>
+        <div class="social-media">
+            <p>Redes sociales</p>
+            <a href="#" class="fa-brands fa-linkedin fa-2x"></a>
+            <a href="#" class="fa-brands fa-instagram fa-2x"></a>
+            <a href="#" class="fa-brands fa-x-twitter fa-2x"></a>
+        </div>
+     </div>
+     
+     <!-- <script src="./js/scripts.js"></script> -->
+</body>
+</html>
