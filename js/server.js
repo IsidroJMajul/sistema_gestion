@@ -2,10 +2,27 @@
 
 // API Node.js (librerias "express", "body-parser" y "CORS")
 const express = require('express');
+const session = require('express-session');
 const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors'); // Importa el paquete CORS
+const crypto = require('crypto'); // Módulo para generar cadenas seguras
+
+// Generar una cadena aleatoria segura
+const secret = crypto.randomBytes(64).toString('hex'); // Genera 64 bytes de datos aleatorios en hexadecimal
+
+// Imprimir el código secreto generado en la consola
+console.log(`Código es: ${secret}`);
+
+app.use(session({
+  secret: secret, // Usamos la cadena generada como secreto
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // 'secure: true' solo en HTTPS
+}));
+
+app.use(express.json());
 
 // Configuración del middleware
 app.use(bodyParser.json());
@@ -52,6 +69,31 @@ app.post('/login', (req, res) => {
   });
 });
 
+// manejo para el cierre de sesión
+app.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+      if (err) {
+          return res.status(500).json({ message: 'Error al cerrar sesión' });
+      };
+      // Genera un nuevo secreto cada vez que se cierra sesión
+        secret = crypto.randomBytes(64).toString('hex');
+        console.log(`Nuevo secreto generado: ${secret}`); // Solo para desarrollo
+
+        // Limpiar la cookie de sesión
+        res.clearCookie('connect.sid');
+
+        // Reiniciar la configuración de sesión
+        app.use(session({
+            secret: secret, // Usar el nuevo secreto
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: false }
+        }));
+
+        res.json({ message: 'Sesión cerrada y secreto actualizado' });
+    });
+});
+
 // Ruta para registrar un nuevo usuario
 app.post('/register', (req, res) => {
   const { username, dni, email, password } = req.body;
@@ -78,4 +120,5 @@ app.post('/register', (req, res) => {
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
+  console.log(`Secreto inicial: ${secret}`); // Solo para desarrollo
 });

@@ -1,6 +1,5 @@
 // Manejo formulario de login
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevenir el envío del formulario
+document.getElementById('loginForm').addEventListener('submit', function(event){event.preventDefault(); // Prevenir el envío del formulario
 
   // Capturar los valores de los campos
   const dniSubmit = document.getElementById('dni_input').value;
@@ -39,3 +38,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   });
 });
 
+const logout = async () => {
+  await fetch('http://localhost:5000/login', { method: 'POST' });
+  // modificar porque redirige sin importar que haya un usuario logueado
+  window.location.href = './pages/actions.html';
+};
