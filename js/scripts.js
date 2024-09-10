@@ -23,10 +23,15 @@ document.getElementById('loginForm').addEventListener('submit', function(event){
   .then(response => response.json())
   .then(data => {
     if (data.success) {
+      // Log exitoso, guardar los datos del usuario en sessionStorage
+      sessionStorage.setItem('dni', data.dni);
+      sessionStorage.setItem('mail', data.mail);
+
       //entonces, lo que se devuelve como respuesta, queda guardado en el parámetro "data" 
       console.log('Response data:', data);
       alert(`Login exitoso. Bienvenido, ${data.username}`);
-      // Aquí podrías redirigir al usuario a otra página, por ejemplo:
+
+      // Una vez hecho el LOGIN EXITOSO, redirigir al usuario a otra página, por ejemplo:
       // window.location.href = '/dashboard.html';
     } else {
       alert('Credenciales incorrectas');
@@ -38,8 +43,40 @@ document.getElementById('loginForm').addEventListener('submit', function(event){
   });
 });
 
+/* REVISAR*/
+
 const logout = async () => {
-  await fetch('http://localhost:5000/login', { method: 'POST' });
-  // modificar porque redirige sin importar que haya un usuario logueado
-  window.location.href = './pages/actions.html';
+  // Verificar si hay un usuario logueado (guardado en sessionStorage)
+  const dni = sessionStorage.getItem('dni');
+  const mail = sessionStorage.getItem('mail');
+
+  if (!dni || !mail) {
+    // Si no hay usuario guardado, mostrar alerta y no realizar ninguna acción
+    alert("No se puede cerrar sesión porque no hay usuario logueado");
+    return;
+  }
+
+  // Realizar la solicitud de logout si el usuario está logueado
+  const response = await fetch('http://localhost:5000/logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include' // Incluir cookies en la solicitud de logout para que el servidor sepa que hay una sesión activa
+  });
+
+  const data = await response.json();
+
+  // Si la solicitud fue exitosa
+  if (data.success) {
+    // Remover los datos de sessionStorage
+    sessionStorage.removeItem('dni');
+    sessionStorage.removeItem('mail');
+    
+    // Redirigir a la página principal
+    window.location.href = './index.html';
+  } else {
+    // Mostrar un mensaje de error si no se pudo cerrar sesión
+    alert("Error al intentar cerrar sesión");
+  }
 };

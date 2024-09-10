@@ -6,11 +6,11 @@ const session = require('express-session');
 const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const cors = require('cors'); // Importa el paquete CORS
+const cors = require('cors'); // Importa el paquete CORS para que sean compatibles entre puertos diferentes (BD en 5000 y sitio web en 3000)
 const crypto = require('crypto'); // Módulo para generar cadenas seguras
 
 // Generar una cadena aleatoria segura
-const secret = crypto.randomBytes(64).toString('hex'); // Genera 64 bytes de datos aleatorios en hexadecimal
+let secret = crypto.randomBytes(64).toString('hex'); // Genera 64 bytes de datos aleatorios en hexadecimal
 
 // Imprimir el código secreto generado en la consola
 console.log(`Código es: ${secret}`);
@@ -26,7 +26,12 @@ app.use(express.json());
 
 // Configuración del middleware
 app.use(bodyParser.json());
-app.use(cors()); // Habilita CORS para todas las rutas
+app.use(cors({
+    origin: 'http://127.0.0.1:3000', // Cambiar al puerto de tu frontend
+    credentials: true, // Habilitar el envío de cookies
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));  
 
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
@@ -57,47 +62,57 @@ app.post('/login', (req, res) => {
       return;
     }
     if (results.length > 0) {
-        const user = results[0];
-        const mail = results[0];
-    res.json({ success: true,
-         username: user.username,
-         mail: mail.mail,
-         message: `Login exitoso` });
+      const user = results[0];
+      req.session.userId = user.id; // Guardar el ID de usuario en la sesión
+      res.json({
+        success: true,
+        dni: user.dni,
+        mail: user.mail,
+        message: 'Login exitoso'
+      });
     } else {
       res.status(401).json({ success: false, message: 'Credenciales incorrectas' });
     }
   });
 });
 
-// manejo para el cierre de sesión
+/*
+// Manejo para el cierre de sesión
 app.post('/logout', (req, res) => {
+  // Verificar si el usuario está logueado
+  if (!req.session.userId) {
+    return res.status(400).json({ message: 'No hay usuario logueado' });
+  }
+
+  // Destruir la sesión
   req.session.destroy((err) => {
-      if (err) {
-          return res.status(500).json({ message: 'Error al cerrar sesión' });
-      };
-      // Genera un nuevo secreto cada vez que se cierra sesión
-        secret = crypto.randomBytes(64).toString('hex');
-        console.log(`Nuevo secreto generado: ${secret}`); // Solo para desarrollo
+    if (err) {
+      return res.status(500).json({ message: 'Error al cerrar sesión' });
+    }
 
-        // Limpiar la cookie de sesión
-        res.clearCookie('connect.sid');
+    // Generar un nuevo secreto para la nueva sesión
+    secret = crypto.randomBytes(64).toString('hex');
+    console.log(`Nuevo secreto generado: ${secret}`); // Solo para desarrollo
 
-        // Reiniciar la configuración de sesión
-        app.use(session({
-            secret: secret, // Usar el nuevo secreto
-            resave: false,
-            saveUninitialized: true,
-            cookie: { secure: false }
-        }));
+    // Limpiar la cookie de sesión
+    res.clearCookie('connect.sid');
 
-        res.json({ message: 'Sesión cerrada y secreto actualizado' });
-    });
+    // Reiniciar la configuración de sesión con el nuevo secreto
+    app.use(session({
+      secret: secret, // Usar el nuevo secreto
+      resave: false,
+      saveUninitialized: true,
+      cookie: { secure: false }
+    }));
+
+    res.json({ success: true, message: 'Sesión cerrada y secreto actualizado' });
+  });
 });
+*/
 
 // Ruta para registrar un nuevo usuario
 app.post('/register', (req, res) => {
   const { username, dni, email, password } = req.body;
-  // console.log("Correo recibido:", email); // Verifica que el mail se reciba correctamente
 
   // Primero verifica si el usuario ya existe
   const checkUserSql = 'SELECT * FROM users WHERE dni = ?';
