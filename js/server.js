@@ -66,6 +66,7 @@ app.post('/login', (req, res) => {
       req.session.userId = user.id; // Guardar el ID de usuario en la sesión
       res.json({
         success: true,
+        username: user.username,
         dni: user.dni,
         mail: user.mail,
         message: 'Login exitoso'
@@ -76,39 +77,11 @@ app.post('/login', (req, res) => {
   });
 });
 
-/*
-// Manejo para el cierre de sesión
+// Manejo de cierre de sesión. No es necesario el manejo de sesión en el servidor para Session Storage
 app.post('/logout', (req, res) => {
-  // Verificar si el usuario está logueado
-  if (!req.session.userId) {
-    return res.status(400).json({ message: 'No hay usuario logueado' });
-  }
-
-  // Destruir la sesión
-  req.session.destroy((err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error al cerrar sesión' });
-    }
-
-    // Generar un nuevo secreto para la nueva sesión
-    secret = crypto.randomBytes(64).toString('hex');
-    console.log(`Nuevo secreto generado: ${secret}`); // Solo para desarrollo
-
-    // Limpiar la cookie de sesión
-    res.clearCookie('connect.sid');
-
-    // Reiniciar la configuración de sesión con el nuevo secreto
-    app.use(session({
-      secret: secret, // Usar el nuevo secreto
-      resave: false,
-      saveUninitialized: true,
-      cookie: { secure: false }
-    }));
-
-    res.json({ success: true, message: 'Sesión cerrada y secreto actualizado' });
-  });
+  // Solo enviar una respuesta de éxito al cliente
+  res.json({ success: true, message: 'Sesión cerrada en el cliente' });
 });
-*/
 
 // Ruta para registrar un nuevo usuario
 app.post('/register', (req, res) => {
@@ -135,5 +108,5 @@ app.post('/register', (req, res) => {
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
-  console.log(`Secreto inicial: ${secret}`); // Solo para desarrollo
+  // console.log(`Secreto inicial: ${secret}`); // Solo para desarrollo
 });
