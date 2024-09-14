@@ -26,6 +26,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event){
       // Log exitoso, guardar los datos del usuario en sessionStorage
       sessionStorage.setItem('dni', data.dni);
       sessionStorage.setItem('mail', data.mail);
+      sessionStorage.setItem('username', data.username);
 
       //entonces, lo que se devuelve como respuesta, queda guardado en el parámetro "data" 
       console.log('Response data:', data);
@@ -72,6 +73,8 @@ const logout = async () => {
       // Remover los datos de sessionStorage
       sessionStorage.removeItem('dni');
       sessionStorage.removeItem('mail');
+      sessionStorage.removeItemItem('username');
+
       
       // Redirigir a la página principal
       alert("Sesión cerrada exitosamente");

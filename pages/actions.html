@@ -34,12 +34,12 @@
             </button>
             <div class="menu-container">
                 <a href="">Datos personales</a>
-                <a href="">Cerrar sesión</a>
+                <a href="#" onclick="logout()">Cerrar sesión</a>
             </div>
         </div>
     </div>
     <!-- Texto bienvenida -->
-    <h1>¡Bienvenido, {username}!</h1>
+    <h1 id="welcomeMessage">¡Bienvenido!</h1>
     <p class="what_to_do">Selecciona qué hacer: </p>
     <!-- Botones para seleccionar -->
     <div class="actions_btn">
@@ -64,6 +64,7 @@
         </div>
      </div>
      
-     <!-- <script src="./js/scripts.js"></script> -->
+     <script src="../js/actions_scripts.js"></script>
 </body>
 </html>
+  
