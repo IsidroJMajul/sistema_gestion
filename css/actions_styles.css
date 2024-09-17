@@ -135,7 +135,7 @@ h1 {
     top: 200px;
     align-self: center;
     display: flex;
-    gap: 50px;
+    gap: 50px
 }
 
 .actions_btn button {
