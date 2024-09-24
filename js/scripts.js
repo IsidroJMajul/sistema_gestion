@@ -1,3 +1,24 @@
+// Manejo de los menús desplegables
+const menuButton = document.getElementById('dropbtn');
+const menuItems = document.getElementById('menu-dropdown-content');
+
+// Al hacer clic en el botón, se muestra o oculta el menú
+menuButton.addEventListener('click', () => {
+    if (menuItems.style.display === 'block') {
+        menuItems.style.display = 'none'
+    } else {
+        menuItems.style.display = 'block';
+    }
+});
+
+// Opcional: cierra el menú si se hace clic fuera de él
+window.addEventListener('click', (e) => {
+    if (!menuButton.contains(e.target) && !menuItems.contains(e.target)) {
+        menuItems.style.display = 'none';
+    }
+});
+
+
 // Manejo formulario de login
 document.getElementById('loginForm').addEventListener('submit', function(event){event.preventDefault(); // Prevenir el envío del formulario
 

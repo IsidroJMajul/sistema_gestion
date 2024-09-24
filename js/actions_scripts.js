@@ -6,7 +6,7 @@ const username = sessionStorage.getItem('username');
 
 // Al cargar la página, recuperar el nombre del Session Storage y generar el avatar
 window.onload = function() {
-  var name = username;
+  let name = username;
   if (name) {
       generateAvatar(name);
       var user_icon = document.getElementById("user_icon");
@@ -15,6 +15,7 @@ window.onload = function() {
       if (user_icon) {
           console.log("Cambiando el avatar...");
       } else {
+        // no encuentra el "user_icon" porque se reemplaza con la img del canvas
           console.error("El elemento con id='user_icon' no se encontró.");
       }
   } else {
@@ -25,46 +26,39 @@ window.onload = function() {
 
 // Función que genera el avatar basándose en las iniciales del nombre
 function generateAvatar(name) {
-    var initials = name.split(' ').map(function(str) { 
+    let initials = name.split(' ').map(function(str) { 
       return str ? str[0].toUpperCase() : ""; 
       }).join('');
 
     console.log("Initials generadas:", initials); // Para verificar que las iniciales se generen correctamente
 
-    var canvas = document.createElement('canvas');
-    var radius = 30;
-    var margin = 5;
-    canvas.width = radius * 2 + margin * 2;
-    canvas.height = radius * 2 + margin * 2;
+    let canvas = document.createElement('canvas');    
+    let radius = 20;
+    let margin = 0;
+    canvas.width = radius * 2;
+    canvas.height = radius * 2;
 
     // Obtener el contexto para dibujar en el canvas
-    var ctx = canvas.getContext('2d');
+    let ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.arc(radius + margin, radius + margin, radius, 0, 2 * Math.PI, false);
     ctx.closePath();
     ctx.fillStyle = 'grey';
     ctx.fill();
+
+    // Dibujar el texto en el centro
     ctx.fillStyle = "white";
-    ctx.font = "bold 30px Arial";
+    ctx.font = "bold 30px Courier";
     ctx.textAlign = 'center';
-    ctx.fillText(initials, radius + margin, radius * 4 / 3 + margin);
+    ctx.fillText(initials, radius, radius * 4 / 3);
 
     // Convertimos el canvas en una URL de imagen y actualizamos el botón
-    var avatarUrl = canvas.toDataURL();
+    let avatarUrl = canvas.toDataURL();
     console.log("URL generada del avatar:", avatarUrl); // Verifica si la URL del avatar es correcta
     document.getElementById("user_icon").src = avatarUrl;
-    
 
-    // Aquí fuerzas la actualización del src
-    // var avatarIcon = document.getElementById("avatarIcon");
-    // if (avatarIcon) {
-    //   avatarIcon.src = avatarUrl;
-    //   avatarIcon.setAttribute("src", avatarUrl); // Forzamos la actualización del src
-    // } else {
-    //     console.error("El elemento con id='avatarIcon' no se encontró.");
-    // }
     function updateAvatar() {
-      var avatarIcon = document.getElementById('user_icon');
+      let avatarIcon = document.getElementById('user_icon');
       if (avatarIcon) {
           // Crear una nueva imagen con las iniciales
         var imgElement = document.createElement('img');
@@ -73,15 +67,7 @@ function generateAvatar(name) {
         
         // Reemplazar el icono de FontAwesome con la imagen
         user_icon.replaceWith(imgElement);
-
-        // avatarIcon.className = avatarUrl;
-        // avatarIcon.setAttribute("src", avatarUrl)
-        // avatarIcon.className.backgroundImage = `url(${avatarUrl})`; // Cambia el fondo del icono
-        // avatarIcon.className.backgroundSize = 'cover'; // Asegúrate de que la imagen se ajuste al tamaño
       }
-      
-      // document.getElementById("user_icon").removeAttribute("class");
-      // document.getElementById("user_icon").removeAttribute("aria-hidden");
     }
   updateAvatar(); // Llama a la función para actualizar el avatar
 }
